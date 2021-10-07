@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']					= 'Ingenico';
+$_['heading_title']					= 'Worldline';
 
 // Text
 $_['text_payment']					= 'Payment';
 $_['text_success']					= 'Success: Information has been updated.';
-$_['text_edit']                     = 'Configure Ingenico Payment gateway';
+$_['text_edit']                     = 'Configure Worldline Payment gateway';
 
 $_['request_type_T']			    = 'T';
 $_['request_type_TRC']				= 'TRC';
@@ -19,8 +19,8 @@ $_['verification_type_O']		    = 'O';
 
 
 // Column
-$_['text_for_ingenico']			= 'Select Payment mode for Ingenico';
-$_['text_ingenico']			    = '<img src="view/image/payment/ingenico.png" alt="ingenico" title="ingenico" style="border: 1px solid #EEEEEE;" /></a>';
+$_['text_for_Worldline']			= 'Select Payment mode for Worldline';
+$_['text_Worldline']			    = '<img src="view/image/payment/Worldline.png" alt="Worldline" title="Worldline" style="border: 1px solid #EEEEEE;" /></a>';
 
 $_['status']				        = 'Status';
 // Entry
@@ -95,7 +95,7 @@ $_['error_key']		                = 'Key can not be null.';
 $_['error_webservice_locator']	    = 'Webservice locator can not be null.';
 $_['error_status']				    = 'Status can not be null.';
 $_['error_sort_order']			    = 'Sort order can not be null.';
-$_['error_ingenico_verification']    = 'Ingenico verification can not be null.';
+$_['error_Worldline_verification']    = 'Worldline verification can not be null.';
 $_['error_merchant_scheme_code']    = 'Merchant scheme code can not be null.';
 $_['error_order_status_confirm']    = 'Order status on confirm can not be null.';
 $_['error_order_status_complete']	= 'Order status on complete can not be null.';

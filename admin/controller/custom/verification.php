@@ -29,9 +29,9 @@ class ControllerCustomVerification extends Controller{
             'separator' => ' :: '
         );
 
-        $this->load->model('payment/ingenico');
+        $this->load->model('payment/Worldline');
 
-        $merchant_details = $this->model_payment_ingenico->get();
+        $merchant_details = $this->model_payment_Worldline->get();
         
         $this->data['mrc_code'] = (isset($merchant_details[0]['merchant_code']))? $merchant_details[0]['merchant_code']: null;
         $this->data['currency'] = $this->currency->getCode();

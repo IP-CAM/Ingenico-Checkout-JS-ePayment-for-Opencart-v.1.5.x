@@ -4,7 +4,7 @@
 
   </div>
 </div>
-<div id="ingenico_payment_form">
+<div id="Worldline_payment_form">
 </div>
 <form action="<?php echo $returnUrl_2; ?>" id="response-form" method="POST">
     <input type="hidden" name="msg" value="" id="response-string">

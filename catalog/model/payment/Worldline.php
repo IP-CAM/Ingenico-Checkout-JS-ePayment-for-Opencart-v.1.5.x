@@ -1,7 +1,7 @@
 <?php
-class ModelPaymentIngenico extends Model {
+class ModelPaymentWorldline extends Model {
     public function getMethod($address, $total) {
-        $this->load->language('payment/ingenico');
+        $this->load->language('payment/Worldline');
 
         if ($total <= 0.00) {
             $status = true;
@@ -13,17 +13,17 @@ class ModelPaymentIngenico extends Model {
 
         if ($status) {
             $method_data = array(
-                'code'       => 'ingenico',
+                'code'       => 'Worldline',
                 'title'      => $this->language->get('text_title'),
                 'terms'      => '',
-                'sort_order' => $this->config->get('ingenico_sort_order')
+                'sort_order' => $this->config->get('Worldline_sort_order')
             );
         }
         return $method_data;
     }
 
     public function get() {
-		    return $this->db->query("SELECT * FROM `" . DB_PREFIX . "ingenico`")->rows;
+		    return $this->db->query("SELECT * FROM `" . DB_PREFIX . "Worldline`")->rows;
 	}
 
     public function getOrder($order_id) {

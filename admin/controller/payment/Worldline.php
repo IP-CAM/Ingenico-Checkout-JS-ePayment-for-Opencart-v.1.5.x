@@ -1,28 +1,28 @@
 <?php
-class ControllerPaymentIngenico extends Controller {
+class ControllerPaymentWorldline extends Controller {
 	private $error = array();
 	protected $data = array();
 
 	public function index() {
-		$this->load->language('payment/ingenico');
+		$this->load->language('payment/Worldline');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('setting/setting');
-        $this->load->model('payment/ingenico');
+        $this->load->model('payment/Worldline');
 
-        $merchant_details = $this->model_payment_ingenico->get();
+        $merchant_details = $this->model_payment_Worldline->get();
         $this->data['error_warning'] = array();
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
 		    if(count($this->validate()) == 0){
-    		    $this->model_setting_setting->editSetting('ingenico', $this->request->post);
+    		    $this->model_setting_setting->editSetting('Worldline', $this->request->post);
     		    $this->session->data['success'] = $this->language->get('text_success');
 
     		    if(is_array($merchant_details) && !isset($merchant_details[0])){
-    		        $response = $this->model_payment_ingenico->add($this->request->post);
+    		        $response = $this->model_payment_Worldline->add($this->request->post);
     		    }else{
-    		        $response = $this->model_payment_ingenico->edit($this->request->post);
+    		        $response = $this->model_payment_Worldline->edit($this->request->post);
     		    }
 
     		    if($response === true){
@@ -36,7 +36,7 @@ class ControllerPaymentIngenico extends Controller {
 
 		$this->data['heading_title'] = $this->language->get('heading_title');
 		$this->data['text_edit'] = $this->language->get('text_edit');
-		$this->data['text_for_ingenico'] = $this->language->get('text_for_ingenico');
+		$this->data['text_for_Worldline'] = $this->language->get('text_for_Worldline');
 
 		//values from text box
 		$this->data['request_type_T'] = $this->language->get('request_type_T');
@@ -111,164 +111,164 @@ class ControllerPaymentIngenico extends Controller {
 		$this->data['verification'] = $this->url->link('custom/verification', 'token=' . $this->session->data['token'], 'SSL');
 		$this->data['recon'] = $this->url->link('custom/reconcilation', 'token=' . $this->session->data['token'], 'SSL');
 		
-		$this->data['action'] = $this->url->link('payment/ingenico', 'token=' . $this->session->data['token'], 'SSL');
+		$this->data['action'] = $this->url->link('payment/Worldline', 'token=' . $this->session->data['token'], 'SSL');
 
 		$this->data['cancel'] = $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL');
 
-		if (isset($this->request->post['ingenico_merchant_code'])) {
-		    $this->data['ingenico_merchant_code'] = $this->request->post['ingenico_merchant_code'];
+		if (isset($this->request->post['Worldline_merchant_code'])) {
+		    $this->data['Worldline_merchant_code'] = $this->request->post['Worldline_merchant_code'];
 		} else {
-		    $this->data['ingenico_merchant_code'] = $this->config->get('ingenico_merchant_code');	
+		    $this->data['Worldline_merchant_code'] = $this->config->get('Worldline_merchant_code');	
 		}
 
-		if (isset($this->request->post['ingenico_webservice_locator'])) {
-		    $this->data['ingenico_webservice_locator'] = $this->request->post['ingenico_webservice_locator'];
+		if (isset($this->request->post['Worldline_webservice_locator'])) {
+		    $this->data['Worldline_webservice_locator'] = $this->request->post['Worldline_webservice_locator'];
 		} else {
-		    $this->data['ingenico_webservice_locator'] = $this->config->get('ingenico_webservice_locator');
+		    $this->data['Worldline_webservice_locator'] = $this->config->get('Worldline_webservice_locator');
 		}
 
-		if (isset($this->request->post['ingenico_order_status'])) {
-		    $this->data['ingenico_order_status'] = $this->request->post['ingenico_order_status'];
+		if (isset($this->request->post['Worldline_order_status'])) {
+		    $this->data['Worldline_order_status'] = $this->request->post['Worldline_order_status'];
 		} else {
-		    $this->data['ingenico_order_status'] = $this->config->get('ingenico_order_status');
+		    $this->data['Worldline_order_status'] = $this->config->get('Worldline_order_status');
 		}
 
-		if (isset($this->request->post['ingenico_status'])) {
-		    $this->data['ingenico_status'] = $this->request->post['ingenico_status'];
+		if (isset($this->request->post['Worldline_status'])) {
+		    $this->data['Worldline_status'] = $this->request->post['Worldline_status'];
 		} else {
-		    $this->data['ingenico_status'] = $this->config->get('ingenico_status');
+		    $this->data['Worldline_status'] = $this->config->get('Worldline_status');
 		}
 
-		if (isset($this->request->post['ingenico_sort_order'])) {
-		    $this->data['ingenico_sort_order'] = $this->request->post['ingenico_sort_order'];
+		if (isset($this->request->post['Worldline_sort_order'])) {
+		    $this->data['Worldline_sort_order'] = $this->request->post['Worldline_sort_order'];
 		} else {
-		    $this->data['ingenico_sort_order'] = $this->config->get('ingenico_sort_order');
+		    $this->data['Worldline_sort_order'] = $this->config->get('Worldline_sort_order');
 		}
 
-		if (isset($this->request->post['ingenico_merchant_scheme_code'])) {
-		    $this->data['ingenico_merchant_scheme_code'] = $this->request->post['ingenico_merchant_scheme_code'];
+		if (isset($this->request->post['Worldline_merchant_scheme_code'])) {
+		    $this->data['Worldline_merchant_scheme_code'] = $this->request->post['Worldline_merchant_scheme_code'];
 		} else {
-		    $this->data['ingenico_merchant_scheme_code'] = $this->config->get('ingenico_merchant_scheme_code');
+		    $this->data['Worldline_merchant_scheme_code'] = $this->config->get('Worldline_merchant_scheme_code');
 		}
 
-		if (isset($this->request->post['ingenico_salt'])) {
-		    $this->data['ingenico_salt'] = $this->request->post['ingenico_salt'];
+		if (isset($this->request->post['Worldline_salt'])) {
+		    $this->data['Worldline_salt'] = $this->request->post['Worldline_salt'];
 		} else {
-		    $this->data['ingenico_salt'] = $this->config->get('ingenico_salt');
+		    $this->data['Worldline_salt'] = $this->config->get('Worldline_salt');
 		}		
 
-		if (isset($this->request->post['ingenico_merchant_logo_url'])) {
-		    $this->data['ingenico_merchant_logo_url'] = $this->request->post['ingenico_merchant_logo_url'];
+		if (isset($this->request->post['Worldline_merchant_logo_url'])) {
+		    $this->data['Worldline_merchant_logo_url'] = $this->request->post['Worldline_merchant_logo_url'];
 		} else {
-		    $this->data['ingenico_merchant_logo_url'] = $this->config->get('ingenico_merchant_logo_url');
+		    $this->data['Worldline_merchant_logo_url'] = $this->config->get('Worldline_merchant_logo_url');
 		}		
 
-		if (isset($this->request->post['ingenico_primary_color_code'])) {
-		    $this->data['ingenico_primary_color_code'] = $this->request->post['ingenico_primary_color_code'];
+		if (isset($this->request->post['Worldline_primary_color_code'])) {
+		    $this->data['Worldline_primary_color_code'] = $this->request->post['Worldline_primary_color_code'];
 		} else {
-		    $this->data['ingenico_primary_color_code'] = $this->config->get('ingenico_primary_color_code');
+		    $this->data['Worldline_primary_color_code'] = $this->config->get('Worldline_primary_color_code');
 		}
 
-		if (isset($this->request->post['ingenico_secondary_color_code'])) {
-		    $this->data['ingenico_secondary_color_code'] = $this->request->post['ingenico_secondary_color_code'];
+		if (isset($this->request->post['Worldline_secondary_color_code'])) {
+		    $this->data['Worldline_secondary_color_code'] = $this->request->post['Worldline_secondary_color_code'];
 		} else {
-		    $this->data['ingenico_secondary_color_code'] = $this->config->get('ingenico_secondary_color_code');
+		    $this->data['Worldline_secondary_color_code'] = $this->config->get('Worldline_secondary_color_code');
 		}
 
-		if (isset($this->request->post['ingenico_button_color_code1'])) {
-		    $this->data['ingenico_button_color_code1'] = $this->request->post['ingenico_button_color_code1'];
+		if (isset($this->request->post['Worldline_button_color_code1'])) {
+		    $this->data['Worldline_button_color_code1'] = $this->request->post['Worldline_button_color_code1'];
 		} else {
-		    $this->data['ingenico_button_color_code1'] = $this->config->get('ingenico_button_color_code1');
+		    $this->data['Worldline_button_color_code1'] = $this->config->get('Worldline_button_color_code1');
 		}
 
-		if (isset($this->request->post['ingenico_button_color_code2'])) {
-		    $this->data['ingenico_button_color_code2'] = $this->request->post['ingenico_button_color_code2'];
+		if (isset($this->request->post['Worldline_button_color_code2'])) {
+		    $this->data['Worldline_button_color_code2'] = $this->request->post['Worldline_button_color_code2'];
 		} else {
-		    $this->data['ingenico_button_color_code2'] = $this->config->get('ingenico_button_color_code2');
+		    $this->data['Worldline_button_color_code2'] = $this->config->get('Worldline_button_color_code2');
 		}		
 
-		if (isset($this->request->post['ingenico_new_window_flow'])) {
-		    $this->data['ingenico_new_window_flow'] = $this->request->post['ingenico_new_window_flow'];
+		if (isset($this->request->post['Worldline_new_window_flow'])) {
+		    $this->data['Worldline_new_window_flow'] = $this->request->post['Worldline_new_window_flow'];
 		} else {
-		    $this->data['ingenico_new_window_flow'] = $this->config->get('ingenico_new_window_flow');
+		    $this->data['Worldline_new_window_flow'] = $this->config->get('Worldline_new_window_flow');
 		}		
 
-		if (isset($this->request->post['ingenico_express_pay'])) {
-		    $this->data['ingenico_express_pay'] = $this->request->post['ingenico_express_pay'];
+		if (isset($this->request->post['Worldline_express_pay'])) {
+		    $this->data['Worldline_express_pay'] = $this->request->post['Worldline_express_pay'];
 		} else {
-		    $this->data['ingenico_express_pay'] = $this->config->get('ingenico_express_pay');
+		    $this->data['Worldline_express_pay'] = $this->config->get('Worldline_express_pay');
 		}		
 
-		if (isset($this->request->post['ingenico_merchant_message'])) {
-		    $this->data['ingenico_merchant_message'] = $this->request->post['ingenico_merchant_message'];
+		if (isset($this->request->post['Worldline_merchant_message'])) {
+		    $this->data['Worldline_merchant_message'] = $this->request->post['Worldline_merchant_message'];
 		} else {
-		    $this->data['ingenico_merchant_message'] = $this->config->get('ingenico_merchant_message');
+		    $this->data['Worldline_merchant_message'] = $this->config->get('Worldline_merchant_message');
 		}		
 
-		if (isset($this->request->post['ingenico_disclaimer_message'])) {
-		    $this->data['ingenico_disclaimer_message'] = $this->request->post['ingenico_disclaimer_message'];
+		if (isset($this->request->post['Worldline_disclaimer_message'])) {
+		    $this->data['Worldline_disclaimer_message'] = $this->request->post['Worldline_disclaimer_message'];
 		} else {
-		    $this->data['ingenico_disclaimer_message'] = $this->config->get('ingenico_disclaimer_message');
+		    $this->data['Worldline_disclaimer_message'] = $this->config->get('Worldline_disclaimer_message');
 		}		
 
-		if (isset($this->request->post['ingenico_mer_transaction_details'])) {
-		    $this->data['ingenico_mer_transaction_details'] = $this->request->post['ingenico_mer_transaction_details'];
+		if (isset($this->request->post['Worldline_mer_transaction_details'])) {
+		    $this->data['Worldline_mer_transaction_details'] = $this->request->post['Worldline_mer_transaction_details'];
 		} else {
-		    $this->data['ingenico_mer_transaction_details'] = $this->config->get('ingenico_mer_transaction_details');
+		    $this->data['Worldline_mer_transaction_details'] = $this->config->get('Worldline_mer_transaction_details');
 		}		
 
-		if (isset($this->request->post['ingenico_instrumentDeRegistration'])) {
-		    $this->data['ingenico_instrumentDeRegistration'] = $this->request->post['ingenico_instrumentDeRegistration'];
+		if (isset($this->request->post['Worldline_instrumentDeRegistration'])) {
+		    $this->data['Worldline_instrumentDeRegistration'] = $this->request->post['Worldline_instrumentDeRegistration'];
 		} else {
-		    $this->data['ingenico_instrumentDeRegistration'] = $this->config->get('ingenico_instrumentDeRegistration');
+		    $this->data['Worldline_instrumentDeRegistration'] = $this->config->get('Worldline_instrumentDeRegistration');
 		}		
 
-		if (isset($this->request->post['ingenico_hide_saved_instruments'])) {
-		    $this->data['ingenico_hide_saved_instruments'] = $this->request->post['ingenico_hide_saved_instruments'];
+		if (isset($this->request->post['Worldline_hide_saved_instruments'])) {
+		    $this->data['Worldline_hide_saved_instruments'] = $this->request->post['Worldline_hide_saved_instruments'];
 		} else {
-		    $this->data['ingenico_hide_saved_instruments'] = $this->config->get('ingenico_hide_saved_instruments');
+		    $this->data['Worldline_hide_saved_instruments'] = $this->config->get('Worldline_hide_saved_instruments');
 		}		
 
-		if (isset($this->request->post['ingenico_save_instrument'])) {
-		    $this->data['ingenico_save_instrument'] = $this->request->post['ingenico_save_instrument'];
+		if (isset($this->request->post['Worldline_save_instrument'])) {
+		    $this->data['Worldline_save_instrument'] = $this->request->post['Worldline_save_instrument'];
 		} else {
-		    $this->data['ingenico_save_instrument'] = $this->config->get('ingenico_save_instrument');
+		    $this->data['Worldline_save_instrument'] = $this->config->get('Worldline_save_instrument');
 		}		
 
-		if (isset($this->request->post['ingenico_txnType'])) {
-		    $this->data['ingenico_txnType'] = $this->request->post['ingenico_txnType'];
+		if (isset($this->request->post['Worldline_txnType'])) {
+		    $this->data['Worldline_txnType'] = $this->request->post['Worldline_txnType'];
 		} else {
-		    $this->data['ingenico_txnType'] = $this->config->get('ingenico_txnType');
+		    $this->data['Worldline_txnType'] = $this->config->get('Worldline_txnType');
 		}		
 
-		if (isset($this->request->post['ingenico_response_on_popup'])) {
-		    $this->data['ingenico_response_on_popup'] = $this->request->post['ingenico_response_on_popup'];
+		if (isset($this->request->post['Worldline_response_on_popup'])) {
+		    $this->data['Worldline_response_on_popup'] = $this->request->post['Worldline_response_on_popup'];
 		} else {
-		    $this->data['ingenico_response_on_popup'] = $this->config->get('ingenico_response_on_popup');
+		    $this->data['Worldline_response_on_popup'] = $this->config->get('Worldline_response_on_popup');
 		}		
 
-		if (isset($this->request->post['ingenico_checkoutElement'])) {
-		    $this->data['ingenico_checkoutElement'] = $this->request->post['ingenico_checkoutElement'];
+		if (isset($this->request->post['Worldline_checkoutElement'])) {
+		    $this->data['Worldline_checkoutElement'] = $this->request->post['Worldline_checkoutElement'];
 		} else {
-		    $this->data['ingenico_checkoutElement'] = $this->config->get('ingenico_checkoutElement');
+		    $this->data['Worldline_checkoutElement'] = $this->config->get('Worldline_checkoutElement');
 		}		
 
-		if (isset($this->request->post['ingenico_separateCardMode'])) {
-		    $this->data['ingenico_separateCardMode'] = $this->request->post['ingenico_separateCardMode'];
+		if (isset($this->request->post['Worldline_separateCardMode'])) {
+		    $this->data['Worldline_separateCardMode'] = $this->request->post['Worldline_separateCardMode'];
 		} else {
-		    $this->data['ingenico_separateCardMode'] = $this->config->get('ingenico_separateCardMode');
+		    $this->data['Worldline_separateCardMode'] = $this->config->get('Worldline_separateCardMode');
 		}		
 
-		if (isset($this->request->post['ingenico_paymentModeOrder'])) {
-		    $this->data['ingenico_paymentModeOrder'] = $this->request->post['ingenico_paymentModeOrder'];
+		if (isset($this->request->post['Worldline_paymentModeOrder'])) {
+		    $this->data['Worldline_paymentModeOrder'] = $this->request->post['Worldline_paymentModeOrder'];
 		} else {
-		    $this->data['ingenico_paymentModeOrder'] = $this->config->get('ingenico_paymentModeOrder');
+		    $this->data['Worldline_paymentModeOrder'] = $this->config->get('Worldline_paymentModeOrder');
 		}		
 
-		if (isset($this->request->post['ingenico_payment_mode'])) {
-		    $this->data['ingenico_payment_mode'] = $this->request->post['ingenico_payment_mode'];
+		if (isset($this->request->post['Worldline_payment_mode'])) {
+		    $this->data['Worldline_payment_mode'] = $this->request->post['Worldline_payment_mode'];
 		} else {
-		    $this->data['ingenico_payment_mode'] = $this->config->get('ingenico_payment_mode');
+		    $this->data['Worldline_payment_mode'] = $this->config->get('Worldline_payment_mode');
 		}
 
 		$this->data['button_colours'] = array(
@@ -288,7 +288,7 @@ class ControllerPaymentIngenico extends Controller {
 			'x-large' => $this->language->get('text_x_large'),
 		);
 
-		$this->template = 'payment/ingenico.tpl';
+		$this->template = 'payment/Worldline.tpl';
 		$this->children = array(
 		        'common/header',
 		        'common/footer'
@@ -298,19 +298,19 @@ class ControllerPaymentIngenico extends Controller {
 	}
 
 	public function install() {
-		$this->load->model('payment/ingenico');
-		$this->model_payment_ingenico->install();
+		$this->load->model('payment/Worldline');
+		$this->model_payment_Worldline->install();
 	}
 
 	public function uninstall() {
-		$this->load->model('payment/ingenico');
-		$this->model_payment_ingenico->uninstall();
+		$this->load->model('payment/Worldline');
+		$this->model_payment_Worldline->uninstall();
 	}
 
 	public function orderAction(){
 		$this->data['order_id'] = $this->request->get['order_id'];
 		$this->load->model('sale/order');
-		$this->load->model('payment/ingenico');
+		$this->load->model('payment/Worldline');
 		
 		$query = $this->db->query("SELECT
   		o.comment,
@@ -325,11 +325,11 @@ class ControllerPaymentIngenico extends Controller {
 			$this->data['status'] = 'success';	
             $this->data['token'] = $query->rows[0]['comment'];
             $this->data['date'] = $query->rows[0]['mydate'];
-            $this->data['mcode'] = $this->config->get('ingenico_merchant_code');
+            $this->data['mcode'] = $this->config->get('Worldline_merchant_code');
             $order_info = $this->model_sale_order->getOrder($this->data['order_id']);
             $this->data['currency'] = $order_info['currency_code'];
 
-            if($this->config->get('ingenico_webservice_locator') == 'Test'){
+            if($this->config->get('Worldline_webservice_locator') == 'Test'){
             	$this->data['amount'] = '1.00';  	
             }else{
             	$this->data['amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
@@ -339,28 +339,28 @@ class ControllerPaymentIngenico extends Controller {
         	$data['status'] = 'fail';
         }
 
-		$this->template = 'payment/ingenico_order.tpl';
+		$this->template = 'payment/Worldline_order.tpl';
 		$this->response->setOutput($this->render());
 	}
 
 	protected function validate() {
-		if (!trim($this->request->post['ingenico_merchant_code'])) {
+		if (!trim($this->request->post['Worldline_merchant_code'])) {
 			$this->error['warning']['merchant_code'] = $this->language->get('error_merchant_code');
 		}
 
-		if (!$this->request->post['ingenico_webservice_locator']) {
+		if (!$this->request->post['Worldline_webservice_locator']) {
 		    $this->error['warning']['access_webservice_locator'] = $this->language->get('error_webservice_locator');
 		}
 
-		if (!trim($this->request->post['ingenico_sort_order'])) {
+		if (!trim($this->request->post['Worldline_sort_order'])) {
 		    $this->error['warning']['access_sort_order'] = $this->language->get('error_sort_order');
 		}
 
-		if (!trim($this->request->post['ingenico_merchant_scheme_code'])) {
+		if (!trim($this->request->post['Worldline_merchant_scheme_code'])) {
 		    $this->error['warning']['merchant_scheme_code'] = $this->language->get('error_merchant_scheme_code');
 		}
 
-		if (!$this->request->post['ingenico_salt']) {
+		if (!$this->request->post['Worldline_salt']) {
 			$this->error['warning']['salt'] = $this->language->get('error_salt');
 		}
 

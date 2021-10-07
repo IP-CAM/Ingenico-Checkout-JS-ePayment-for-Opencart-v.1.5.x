@@ -1,4 +1,4 @@
-<h3>Ingenico Refund</h3>
+<h3>Worldline Refund</h3>
 	<?php 
 	$status = (isset($status)) ? $status: null;
 	if($status =='success'){ ?>

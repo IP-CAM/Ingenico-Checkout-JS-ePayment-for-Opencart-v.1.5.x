@@ -33,8 +33,8 @@ class ControllerCustomReconcilation extends Controller{
         $this->data['action'] = $this->url->link('custom/reconcilation', 'token=' . $this->session->data['token'], 'SSL');  
 
 
-        $this->load->model('payment/ingenico');
-        $merchant_details = $this->model_payment_ingenico->get();
+        $this->load->model('payment/Worldline');
+        $merchant_details = $this->model_payment_Worldline->get();
         $mrc_code = $merchant_details[0]['merchant_code'];
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
@@ -45,7 +45,7 @@ class ControllerCustomReconcilation extends Controller{
             $query = $this->db->query("SELECT o.order_id, h.comment, DATE(o.date_added) as mydate, o.currency_code 
                         FROM `" . DB_PREFIX . "order` AS o JOIN `" . DB_PREFIX . "order_history` AS h
                         ON o.order_id = h.order_id
-                        WHERE h.order_status_id = 1 AND h.comment !='' AND h.date_added BETWEEN ." . $this->data['fromdate'] . " AND '".$this->data['todate']."' AND o.payment_code = 'ingenico' AND o.order_status_id = 1");
+                        WHERE h.order_status_id = 1 AND h.comment !='' AND h.date_added BETWEEN ." . $this->data['fromdate'] . " AND '".$this->data['todate']."' AND o.payment_code = 'Worldline' AND o.order_status_id = 1");
             
             $myorderdata = $query->rows;
             // print_r($myorderdata); exit;

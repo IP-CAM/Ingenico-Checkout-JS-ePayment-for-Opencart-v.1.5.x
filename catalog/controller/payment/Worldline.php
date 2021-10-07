@@ -1,16 +1,16 @@
 <?php
 
-class ControllerPaymentIngenico extends Controller {
+class ControllerPaymentWorldline extends Controller {
 	public function index() {
-	    $this->load->model('payment/ingenico');
+	    $this->load->model('payment/Worldline');
 	    $this->load->model('checkout/order');
 
-		$merchant_details = $this->model_payment_ingenico->get();
+		$merchant_details = $this->model_payment_Worldline->get();
 
 		$merchant_txn_id = rand(1,1000000);
 		$cur_date = date("d-m-Y");
-		$returnUrl = $this->url->link('payment/ingenico/getResponse');
-		$s2surl = $this->url->link('payment/ingenico/s2sverification');
+		$returnUrl = $this->url->link('payment/Worldline/getResponse');
+		$s2surl = $this->url->link('payment/Worldline/s2sverification');
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
 
@@ -156,19 +156,19 @@ class ControllerPaymentIngenico extends Controller {
 
 		$datastring = $this->data['mrc_code']  . "|" . $this->data['merchant_Txn_Ref_Number'] . "|" . $this->data['total_amount'] . "|" . "|" . $this->data['CustomerId']. "|" . $this->data['mob_Number'] . "|" . $this->data['email'] . "||||||||||" . $this->data['SALT'];
 
-		$file_name = 'Ingenico_logs'.date("Y-m-d").'.log';
+		$file_name = 'Worldline_logs'.date("Y-m-d").'.log';
 		if (!file_exists($file_name)){
 			$log = new Log($file_name);
-			$log->write("Ingenico Request: ". $datastring);
+			$log->write("Worldline Request: ". $datastring);
 		}
 
 		$hashed = hash('sha512', $datastring);
 		$this->data['token'] = $hashed;
 
-		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/ingenico.tpl')) {
-		    $this->template = $this->config->get('config_template') . '/template/payment/ingenico.tpl';
+		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/Worldline.tpl')) {
+		    $this->template = $this->config->get('config_template') . '/template/payment/Worldline.tpl';
 		} else {
-		    $this->template = 'default/template/payment/ingenico.tpl';
+		    $this->template = 'default/template/payment/Worldline.tpl';
 		}
 
 		$this->render();
@@ -179,17 +179,17 @@ class ControllerPaymentIngenico extends Controller {
 	        $response = $_POST;
 
 	    	$this->load->model('checkout/order');
-	        $this->load->model('payment/ingenico');
-	        $merchant_details = $this->model_payment_ingenico->get();
+	        $this->load->model('payment/Worldline');
+	        $merchant_details = $this->model_payment_Worldline->get();
 
 	        $identifier = $merchant_details[0]['merchant_code'];
 	        $currency = $this->currency->getCode();
 	        $str = $response['msg'];
 	        //addlogs
-	       	$file_name = 'Ingenico_logs'.date("Y-m-d").'.log';
+	       	$file_name = 'Worldline_logs'.date("Y-m-d").'.log';
 	       	if (!file_exists($file_name)){
 	       		$log = new Log($file_name);
-	       		$log->write("Ingenico Response: ". $str);
+	       		$log->write("Worldline Response: ". $str);
 	       	}
 	        
 	        $response1 = explode('|', $str);
@@ -314,8 +314,8 @@ class ControllerPaymentIngenico extends Controller {
 			exit;
 		}
 		
-		$this->load->model('payment/ingenico');
-	    $merchant_details = $this->model_payment_ingenico->get();
+		$this->load->model('payment/Worldline');
+	    $merchant_details = $this->model_payment_Worldline->get();
 	    $identifier = $merchant_details[0]['merchant_code'];
 	    $currency = $this->currency->getCode();
 	    $str = $response['msg'];
@@ -347,7 +347,7 @@ class ControllerPaymentIngenico extends Controller {
 		$salt_token = $string_without_hash. '|'.$merchant_details[0]['salt'];
 		$hashed_string_token = hash('sha512', $salt_token);
 
-		$file_name = 'Ingenico_logs'.date("Y-m-d").'.log';
+		$file_name = 'Worldline_logs'.date("Y-m-d").'.log';
 		if (!file_exists($file_name)){
 			$log = new Log($file_name);
 			$log->write("Response_S2S: ". $str);
